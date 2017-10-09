@@ -3,8 +3,7 @@ TCP Logger
 
 Create a TCP server that will allow clients to connect and will add each client message to a running log file.
 
-Export a factory function (you call it to create a server) that takes the filepath to the log file where 
-log entries should be written.
+Export a factory function (you call it to create a server, i.e. `const server = createServer(logFilePath);`) that takes the filepath to the log file where log entries should be written.
 
 Log format should be:
 
