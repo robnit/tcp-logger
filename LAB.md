@@ -34,7 +34,7 @@ that will append to the end of the file: `const stream = fs.createWriteStream(lo
 
 ## Rubric
 
-Project and Test setup: **1pts**
-E2E Tests: **3pts**
-TCP Server: **3pts**
-File append: **3pts**
+* Project and Test setup: **1pts**
+* E2E Tests: **3pts**
+* TCP Server: **3pts**
+* File append: **3pts**
