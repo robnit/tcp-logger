@@ -18,6 +18,7 @@ describe('chat app server', () => {
     let clients = null;
     let server = null;
     beforeEach(done => {
+        console.log('in before hook, logFile is', logFile);
         clients = [];
         server = createLogServer(logFile);
         server.listen(port, done);
@@ -37,6 +38,7 @@ describe('chat app server', () => {
     }
 
     it('receives message from client and writes to log file', done => {
+        console.log('=============');
         openClient((err, client1) => {
             openClient((err, client2) => {
                 // do client.write calls
@@ -44,7 +46,7 @@ describe('chat app server', () => {
                 // write callback to *wait" for the socket to finish before you test the log file
                 client1.write('A/S/L???');
                 client2.write('85/M/CA ;)', () => {
-                    assert.equal(fs.readFile(logFile), 'string');
+                    assert.equal(fs.readFile(logFile, ()=>{}), 'string');
                     done();
                 });
                 // read log file and test here!
