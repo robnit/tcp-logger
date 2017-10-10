@@ -50,7 +50,30 @@ describe('chat app server', () => {
                         fs.readFile(logFile, 'utf8', (err, data)=>{
                             console.log('data is ', data);
                             console.log('data typeof is', typeof data);
-                            assert.equal('data', 'string');
+
+                            let readArray = data.split('\n');
+                            readArray = readArray.map(line => {
+                                return {
+                                    date: line.split(' ** ')[0],
+                                    message: line.split(' ** ')[1]
+                                };
+                            });
+                            readArray.pop();
+                            const allDates = readArray.map(a => a.date);
+                            const allMessages = readArray.map(a => a.message);
+                            
+                            const messageArray = ['A/S/L???','85/M/CA ;)'];
+
+                            assert.deepEqual(allMessages, messageArray);
+
+                            allDates.forEach(date =>{
+                                const d = new Date(date);
+                                assert.ok(!isNaN(d.getTime()));
+                            });
+                            
+                        
+
+                            console.log('readArray message is');
                             done();
                         }, 500);
                         
