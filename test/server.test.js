@@ -7,7 +7,7 @@ const path = require('path');
 describe('chat app server', () => {
     const port = 15688;
     const logFile = path.join(__dirname, 'log.txt');
-
+    
     beforeEach(done => {
         fs.unlink(logFile, err => {
             if(err && err.code !== 'ENOENT') done(err);
@@ -36,15 +36,22 @@ describe('chat app server', () => {
         });
     }
 
-    it('runs a test', done => {
+    it('receives message from client and writes to log file', done => {
         openClient((err, client1) => {
             openClient((err, client2) => {
                 // do client.write calls
                 // on last client.write call, you need to use the
                 // write callback to *wait" for the socket to finish before you test the log file
-                client2.write('some message', () => {
+                client1.write('A/S/L???');
+                client2.write('85/M/CA ;)', () => {
+                    // assert.equal()
+                    done();
+                });
                     // read log file and test here!
-                    
+                    client2.on('data',() => {
+
+                    });
+
                     done();
                 });
                 
