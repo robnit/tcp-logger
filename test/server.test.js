@@ -44,19 +44,21 @@ describe('chat app server', () => {
                 // do client.write calls
                 // on last client.write call, you need to use the
                 // write callback to *wait" for the socket to finish before you test the log file
-                client1.write('A/S/L???');
+                client1.write('A/S/L???', ()=>{});
                 client2.write('85/M/CA ;)', () => {
-                    const logFileContents = fs.readFile(logFile,()=>{});
-                    console.log('!!!!! logfile contents',logFileContents);
-                    assert.equal(fs.readFile(logFile, ()=>{}), 'string');
-                    done();
+                    setTimeout(()=>{
+                        fs.readFile(logFile, 'utf8', (err, data)=>{
+                            console.log('data is ', data);
+                            console.log('data typeof is', typeof data);
+                            assert.equal('data', 'string');
+                            done();
+                        }, 500);
+                        
+                    });
                 });
                 // read log file and test here!
-                client2.on('data',() => {
 
-                });
-
-                done();
+                // done();
             });
             
         });
