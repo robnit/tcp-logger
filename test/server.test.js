@@ -44,20 +44,17 @@ describe('chat app server', () => {
                 // write callback to *wait" for the socket to finish before you test the log file
                 client1.write('A/S/L???');
                 client2.write('85/M/CA ;)', () => {
-                    // assert.equal()
+                    assert.equal(fs.readFile(logFile), 'string');
                     done();
                 });
-                    // read log file and test here!
-                    client2.on('data',() => {
+                // read log file and test here!
+                client2.on('data',() => {
 
-                    });
-
-                    done();
                 });
-                
+
+                done();
             });
+            
         });
     });
-
-
 });
