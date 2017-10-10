@@ -46,6 +46,8 @@ describe('chat app server', () => {
                 // write callback to *wait" for the socket to finish before you test the log file
                 client1.write('A/S/L???');
                 client2.write('85/M/CA ;)', () => {
+                    const logFileContents = fs.readFile(logFile,()=>{});
+                    console.log('!!!!! logfile contents',logFileContents);
                     assert.equal(fs.readFile(logFile, ()=>{}), 'string');
                     done();
                 });
