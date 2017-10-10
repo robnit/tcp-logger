@@ -18,7 +18,6 @@ describe('chat app server', () => {
     let clients = null;
     let server = null;
     beforeEach(done => {
-        console.log('in before hook, logFile is', logFile);
         clients = [];
         server = createLogServer(logFile);
         server.listen(port, done);
@@ -38,18 +37,12 @@ describe('chat app server', () => {
     }
 
     it('receives message from client and writes to log file', done => {
-        console.log('=============');
         openClient((err, client1) => {
             openClient((err, client2) => {
-                // do client.write calls
-                // on last client.write call, you need to use the
-                // write callback to *wait" for the socket to finish before you test the log file
                 client1.write('A/S/L???', ()=>{});
                 client2.write('85/M/CA ;)', () => {
                     setTimeout(()=>{
                         fs.readFile(logFile, 'utf8', (err, data)=>{
-                            console.log('data is ', data);
-                            console.log('data typeof is', typeof data);
 
                             let readArray = data.split('\n');
                             readArray = readArray.map(line => {
@@ -70,20 +63,13 @@ describe('chat app server', () => {
                                 const d = new Date(date);
                                 assert.ok(!isNaN(d.getTime()));
                             });
-                            
-                        
-
-                            console.log('readArray message is');
                             done();
+
                         }, 500);
                         
                     });
                 });
-                // read log file and test here!
-
-                // done();
             });
-            
         });
     });
 });
