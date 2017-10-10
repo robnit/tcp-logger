@@ -1,0 +1,27 @@
+{
+  "name": "tcp-logger",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.test.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robnit/tcp-logger.git"
+  },
+  "author": "Robin Miller <rmillerpdx@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/robnit/tcp-logger/issues"
+  },
+  "homepage": "https://github.com/robnit/tcp-logger#readme",
+  "devDependencies": {
+    "eslint": "^4.8.0",
+    "mocha": "^4.0.1"
+  }
+}
