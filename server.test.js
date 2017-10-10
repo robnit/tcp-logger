@@ -4,7 +4,7 @@ const net = require('net');
 const fs = require('fs');
 const path = require('path');
 
-describe.only('chat app server', () => {
+describe('chat app server', () => {
     const port = 15688;
     const logFile = path.join(__dirname, 'log.txt');
 
