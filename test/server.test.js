@@ -1,8 +1,9 @@
 const assert = require('assert');
-const createLogServer = require('../lib/create-log-server');
 const net = require('net');
 const fs = require('fs');
 const path = require('path');
+
+const createLogServer = require('../lib/create-log-server');
 
 describe('chat app server', () => {
     const port = 15688;
@@ -17,6 +18,7 @@ describe('chat app server', () => {
     
     let clients = null;
     let server = null;
+
     beforeEach(done => {
         clients = [];
         server = createLogServer(logFile);
@@ -44,20 +46,23 @@ describe('chat app server', () => {
                     setTimeout(()=>{
                         fs.readFile(logFile, 'utf8', (err, data)=>{
 
-                            let readArray = data.split('\n');
-                            readArray = readArray.map(line => {
+                            let messageArray = data.split('\n');
+                            //Remove empty element at end of array
+                            messageArray.pop();
+
+                            messageArray = messageArray.map(line => {
                                 return {
                                     date: line.split(' ** ')[0],
                                     message: line.split(' ** ')[1]
                                 };
                             });
-                            readArray.pop();
-                            const allDates = readArray.map(a => a.date);
-                            const allMessages = readArray.map(a => a.message);
-                            
-                            const messageArray = ['A/S/L???','85/M/CA ;)'];
 
-                            assert.deepEqual(allMessages, messageArray);
+                            const allDates = messageArray.map(a => a.date);
+                            messageArray = messageArray.map(a => a.message);
+                            
+                            const expectedMessages = ['A/S/L???','85/M/CA ;)'];
+
+                            assert.deepEqual(messageArray, expectedMessages);
 
                             allDates.forEach(date =>{
                                 const d = new Date(date);
